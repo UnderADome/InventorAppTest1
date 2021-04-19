@@ -1,0 +1,2 @@
+D:\C# WorkStation\Test Environment Station\InventorAppTest1\obj\Debug\InventorAppTest1.csprojAssemblyReference.cache
+D:\C# WorkStation\Test Environment Station\InventorAppTest1\obj\Debug\InventorAppTest1.csproj.CoreCompileInputs.cache

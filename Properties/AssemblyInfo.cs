@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("InventroAppTest1")]
+[assembly: AssemblyTitle("InventorAppTest1")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("InventroAppTest1")]
+[assembly: AssemblyProduct("InventorAppTest1")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("5889e07e-d3a6-4bc2-baaa-c72b699bc187")]
+[assembly: Guid("fc837133-e7cb-49a7-a69d-4d20561dbf11")]
 
 // 程序集的版本信息由下列四个值组成: 
 //

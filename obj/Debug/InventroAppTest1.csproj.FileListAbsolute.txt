@@ -1,7 +1,0 @@
-D:\C# WorkStation\Test Environment Station\InventroAppTest1\bin\Debug\InventroAppTest1.exe.config
-D:\C# WorkStation\Test Environment Station\InventroAppTest1\bin\Debug\InventroAppTest1.exe
-D:\C# WorkStation\Test Environment Station\InventroAppTest1\bin\Debug\InventroAppTest1.pdb
-D:\C# WorkStation\Test Environment Station\InventroAppTest1\obj\Debug\InventroAppTest1.csprojAssemblyReference.cache
-D:\C# WorkStation\Test Environment Station\InventroAppTest1\obj\Debug\InventroAppTest1.csproj.CoreCompileInputs.cache
-D:\C# WorkStation\Test Environment Station\InventroAppTest1\obj\Debug\InventroAppTest1.exe
-D:\C# WorkStation\Test Environment Station\InventroAppTest1\obj\Debug\InventroAppTest1.pdb

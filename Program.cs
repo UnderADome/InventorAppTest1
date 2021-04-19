@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.InteropServices;  //交互性操作
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Inventor;
 using Application = Inventor.Application;
 
@@ -43,7 +42,8 @@ namespace InventroAppTest1
             }
             catch
             {
-                MessageBox.Show("没有正常连接到Inventor");
+                Console.WriteLine("没有正常连接到Inventor");
+                //MessageBox.Show("没有正常连接到Inventor");
                 return;
             }
 
@@ -52,9 +52,9 @@ namespace InventroAppTest1
 
             ExtrudeFeature extrude = null;
             //最后调用ExtrudeFeatures对象的Item属性，返回具有指定名称的ExtrudeFeature对象
-            extrude = partDoc.ComponentDefinition.Features.ExtrudeFeatures[1];  
+            extrude = partDoc.ComponentDefinition.Features.ExtrudeFeatures[1];
 
-            MessageBox.Show("Extrusion " + extrude.Name + " is suppressed:" + extrude.Suppressed);
+            Console.WriteLine("Extrusion " + extrude.Name + " is suppressed:" + extrude.Suppressed);
 
         }
 
@@ -70,7 +70,7 @@ namespace InventroAppTest1
             }
             catch
             {
-                MessageBox.Show("没有正常连接到Inventor");
+                Console.WriteLine("没有正常连接到Inventor");
                 return;
             }
 
