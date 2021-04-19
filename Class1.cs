@@ -109,6 +109,8 @@ namespace InventroAppTest1
                 string[] files = Directory.GetFiles(DrawingSheetPath);
                 foreach (string file in files)
                 {
+                    Console.WriteLine("--------------Start Foreach------------------");
+
                     string exname = file.Substring(file.LastIndexOf(".") + 1); //得到后缀名
                     if (".dwg".IndexOf(file.Substring(file.LastIndexOf(".") + 1)) > -1) //".dwg|.dfg"
                     {
@@ -136,7 +138,7 @@ namespace InventroAppTest1
 
                             //["Property Type list"] ["Design Tracking Properties"] ["Inventor User Defined Properties"] ["Edit Property Fields"]
                             Console.WriteLine("PropertySets.Count = " + drawingDocument.PropertySets.Count);
-                            Console.WriteLine(drawingDocument.PropertySets["{F29F85E0-4FF9-1068-AB91-08002B27B3D9}"] == null);  //必须要用GUID来表示 https://blog.csdn.net/beihuanlihe130/article/details/107352288
+                            Console.WriteLine("PropertySets是否为空？ -> " + drawingDocument.PropertySets["{F29F85E0-4FF9-1068-AB91-08002B27B3D9}"] == null);  //必须要用GUID来表示 https://blog.csdn.net/beihuanlihe130/article/details/107352288
                             /*
                             for (int i=0; i<drawingDocument.PropertySets.Count; i++)  //行不通，这里能够读到count的值，但是不能通过下标的方式去具体读到其中的属性
                             {
@@ -146,7 +148,8 @@ namespace InventroAppTest1
                             }
                             */
 
-                            PropertySet DesignInfo1 = drawingDocument.PropertySets["{F29F85E0-4FF9-1068-AB91-08002B27B3D9}"];  //这里存在问题。是按照名称，还是按照Item序号？可能需要根据工程图的具体情况来判断
+                            //Inventor Summary Information
+                            PropertySet DesignInfo1 = drawingDocument.PropertySets["{F29F85E0-4FF9-1068-AB91-08002B27B3D9}"];  //不能用名称，也不能用Item序号
                             Console.WriteLine("DesignInfo1: " + (DesignInfo1 == null));
                             Console.WriteLine("DesignInfo1.Title: " + DesignInfo1.ToString());
                             Property property = DesignInfo1.ItemByPropId[(int)PropertiesForSummaryInformationEnum.kTitleSummaryInformation];
@@ -154,6 +157,29 @@ namespace InventroAppTest1
 
                             //Property property_0 = DesignInfo1["Sheet number"];
                             //Console.WriteLine("PropertySet.Property[0].value: "+property_0.Value);
+
+                            //Inventor User Defined Properties
+                            PropertySet DesignInfo2 = drawingDocument.PropertySets["{D5CDD505-2E9C-101B-9397-08002B2CF9AE}"];
+                            Console.WriteLine("DesignInfo2: " + (DesignInfo2 == null));
+                            Console.WriteLine("DesignInfo2.Name = " + DesignInfo2.Name);
+                            //Property property_userdefined = DesignInfo2.ItemByPropId[(int)PropertiesForUserDefinedPropertiesEnum.kDummyUserDefinedProperties];
+                            Property property_userdefined = DesignInfo2["专业"];
+                            Console.WriteLine("专业："+property_userdefined.Value);
+
+                            //Console.WriteLine();
+                            //Console.WriteLine();
+
+                            //Design Tracking Properties
+                            PropertySet DesignInfo3 = drawingDocument.PropertySets["{32853F0F-3444-11D1-9E93-0060B03C1CA6}"];
+                            Console.WriteLine("DesignInfo3: " + (DesignInfo3 == null));
+                            Console.WriteLine("DesignInfo3.Name = " + DesignInfo3.Name);
+                            Property property_tracing = DesignInfo3.ItemByPropId[(int)PropertiesForDesignTrackingPropertiesEnum.kCreationDateDesignTrackingProperties];
+                            Console.WriteLine("CreationDate : " + property_tracing.Value);
+                            property_tracing = DesignInfo3.ItemByPropId[(int)PropertiesForDesignTrackingPropertiesEnum.kDescriptionDesignTrackingProperties];
+                            Console.WriteLine("Description : " + property_tracing.Value);
+                            property_tracing = DesignInfo3.ItemByPropId[(int)PropertiesForDesignTrackingPropertiesEnum.kDesignStatusDesignTrackingProperties];
+                            Console.WriteLine("DesignStatus : " + property_tracing.Value);
+
 
                         }
                         /*
@@ -167,6 +193,7 @@ namespace InventroAppTest1
 
                     }
                 }
+                Console.WriteLine("----------------End Foreach------------------");
             }
             catch
             {
