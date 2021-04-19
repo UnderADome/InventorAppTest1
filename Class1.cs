@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.InteropServices;  //交互性操作
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using Inventor;
 using Application = Inventor.Application;
 using System.Diagnostics;
@@ -35,7 +34,7 @@ namespace InventroAppTest1
         private static Inventor.Application inventorApp = null;
         private static void GetInventorApplication()
         {
-            
+
             try
             {
                 //Marshal.GetActiveObject 从运行对象表（ROT）获取指定对象的运行实例
@@ -65,7 +64,7 @@ namespace InventroAppTest1
             }
             finally
             {
-                
+
                 if (inventorApp != null)
                 {
                     Console.WriteLine("生成了Inventor实例并显示Inventor");
@@ -105,33 +104,33 @@ namespace InventroAppTest1
             string DrawingSheetPath = @"C:\Users\14530\Desktop\DrawingSheets";
             try
             {
-                
+
                 //得到文件夹中的文件
                 string[] files = Directory.GetFiles(DrawingSheetPath);
-                foreach(string file in files)
+                foreach (string file in files)
                 {
                     string exname = file.Substring(file.LastIndexOf(".") + 1); //得到后缀名
-                    if (".dwg".IndexOf(file.Substring(file.LastIndexOf(".")+1)) > -1) //".dwg|.dfg"
+                    if (".dwg".IndexOf(file.Substring(file.LastIndexOf(".") + 1)) > -1) //".dwg|.dfg"
                     {
-                        Console.WriteLine("file文件名："+file);
+                        Console.WriteLine("file文件名：" + file);
                         FileInfo fileInfo = new FileInfo(file);  //https://blog.csdn.net/liubai123/article/details/9858725 操作文件\文件夹
                         fileInfoArray.Add(fileInfo);
-                        Console.WriteLine("Name文件名："+fileInfo.Name);
+                        Console.WriteLine("Name文件名：" + fileInfo.Name);
                         Console.WriteLine("FullName完整目录：" + fileInfo.FullName);
                         Console.WriteLine("DirectoryName目录的完整路径" + fileInfo.DirectoryName);
 
                         //对工程图进行操作，使用工程图API读取工程图中的信息：
                         //图号、文件名称、自然张数、A1张数
                         //按照公司的图纸目录格式列出汇总栏。统计出自然张数和A1张数  //对于inventor文件操作 https://blog.csdn.net/qq_43006346/article/details/104596572
-        
-                            Console.WriteLine("读取工程图");
-                            DrawingDocument drawingDocument = inventorApp.Documents.Open(file, false) as DrawingDocument; //这里需要注意的是前面要用上inventorApp
-                            if (drawingDocument.IsInventorDWG == true)
-                            {
-                                Console.WriteLine("是Inventor的工程图");
-                                Console.WriteLine("DrawingBOMs.Count: " + drawingDocument.DrawingBOMs.Count.ToString());
-                                //Console.WriteLine("DrawingBOMs.Item.1: " + drawingDocument.DrawingBOMs[1].ToString());
-                                Console.WriteLine("Open: " + drawingDocument.Open.ToString());
+
+                        Console.WriteLine("读取工程图");
+                        DrawingDocument drawingDocument = inventorApp.Documents.Open(file, false) as DrawingDocument; //这里需要注意的是前面要用上inventorApp
+                        if (drawingDocument.IsInventorDWG == true)
+                        {
+                            Console.WriteLine("是Inventor的工程图");
+                            Console.WriteLine("DrawingBOMs.Count: " + drawingDocument.DrawingBOMs.Count.ToString());
+                            //Console.WriteLine("DrawingBOMs.Item.1: " + drawingDocument.DrawingBOMs[1].ToString());
+                            Console.WriteLine("Open: " + drawingDocument.Open.ToString());
                             //PropertySet DesignInfo = drawingDocument.PropertySets["Design Tracking Properties"];
                             //Property property = DesignInfo["Part Number"];
 
@@ -148,21 +147,21 @@ namespace InventroAppTest1
                             */
 
                             PropertySet DesignInfo1 = drawingDocument.PropertySets["{F29F85E0-4FF9-1068-AB91-08002B27B3D9}"];  //这里存在问题。是按照名称，还是按照Item序号？可能需要根据工程图的具体情况来判断
-                                Console.WriteLine("DesignInfo1: "+(DesignInfo1 == null));
-                                Console.WriteLine("DesignInfo1.Title: " +DesignInfo1.ToString());
+                            Console.WriteLine("DesignInfo1: " + (DesignInfo1 == null));
+                            Console.WriteLine("DesignInfo1.Title: " + DesignInfo1.ToString());
                             Property property = DesignInfo1.ItemByPropId[(int)PropertiesForSummaryInformationEnum.kTitleSummaryInformation];
-                            Console.WriteLine("Title : "+property.Value);
+                            Console.WriteLine("Title : " + property.Value);
 
-                                //Property property_0 = DesignInfo1["Sheet number"];
-                                //Console.WriteLine("PropertySet.Property[0].value: "+property_0.Value);
+                            //Property property_0 = DesignInfo1["Sheet number"];
+                            //Console.WriteLine("PropertySet.Property[0].value: "+property_0.Value);
 
-                            }
-                       /*
-                        catch
-                        {
-                            Console.WriteLine("读工程图失败");
                         }
-                        */
+                        /*
+                         catch
+                         {
+                             Console.WriteLine("读工程图失败");
+                         }
+                         */
 
 
 
@@ -173,16 +172,16 @@ namespace InventroAppTest1
             {
                 Console.WriteLine("读取文件夹失败");
             }
-            
+
 
 
         }
-        
+
         //判断Sheet的Application与本次设置的全局Application是否是一样的
         //需要用到Sheet.Application == inventorApp进行判断
         private static void IsTheSameApplication()
         {
-            
+
         }
 
 
