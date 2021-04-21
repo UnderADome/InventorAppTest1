@@ -148,27 +148,66 @@ namespace InventroAppTest1
                             }
                             */
 
-                            //Inventor Summary Information
+                            #region Summary Information
+                            //Summary Information
                             PropertySet DesignInfo1 = drawingDocument.PropertySets["{F29F85E0-4FF9-1068-AB91-08002B27B3D9}"];  //不能用名称，也不能用Item序号
                             Console.WriteLine("DesignInfo1: " + (DesignInfo1 == null));
                             Console.WriteLine("DesignInfo1.Title: " + DesignInfo1.ToString());
                             Property property = DesignInfo1.ItemByPropId[(int)PropertiesForSummaryInformationEnum.kTitleSummaryInformation];
                             Console.WriteLine("Title : " + property.Value);
+                            //"初始视图比例""SheetNumber"不在Summary Information
+                            try
+                            {
+                                property = DesignInfo1["初始视图比例"];
+                                Console.WriteLine("初始视图比例 : " + property.Value);
+                            }
+                            catch { }
+                            try
+                            {
+                                property = DesignInfo1["Intitial View Scale"];
+                                Console.WriteLine("Intitial View Scale : " + property.Value);
+                            }
+                            catch { }
+                            try
+                            {
+                                Property property_0 = DesignInfo1["SheetNumber"];
+                                Console.WriteLine("PropertySet.Property[0].value: " + property_0.Value);
+                            }
+                            catch { }
+                            
 
-                            //Property property_0 = DesignInfo1["Sheet number"];
-                            //Console.WriteLine("PropertySet.Property[0].value: "+property_0.Value);
+                            #endregion
 
+                            #region User Defined Properties
                             //Inventor User Defined Properties
                             PropertySet DesignInfo2 = drawingDocument.PropertySets["{D5CDD505-2E9C-101B-9397-08002B2CF9AE}"];
                             Console.WriteLine("DesignInfo2: " + (DesignInfo2 == null));
                             Console.WriteLine("DesignInfo2.Name = " + DesignInfo2.Name);
                             //Property property_userdefined = DesignInfo2.ItemByPropId[(int)PropertiesForUserDefinedPropertiesEnum.kDummyUserDefinedProperties];
-                            Property property_userdefined = DesignInfo2["专业"];
-                            Console.WriteLine("专业："+property_userdefined.Value);
+                            try
+                            {
+                                Property property_userdefined = DesignInfo2["专业"];
+                                Console.WriteLine("专业：" + property_userdefined.Value);
+                                property_userdefined = DesignInfo2["图号"];
+                                Console.WriteLine("图号：" + property_userdefined.Value);
+                                property_userdefined = DesignInfo2["设计阶段"];
+                                Console.WriteLine("设计阶段：" + property_userdefined.Value);
+                                property_userdefined = DesignInfo2["证书编号"];
+                                Console.WriteLine("证书编号：" + property_userdefined.Value);
+                                property_userdefined = DesignInfo2["审查"];
+                                Console.WriteLine("DesignInfo["+"审查"+"]，可以执行");
+                                property_userdefined = DesignInfo2["图名第一行"];
+                                Console.WriteLine("图名第一行：" + property_userdefined.Value);
+                                property_userdefined = DesignInfo2["图幅"];  //"图幅"Prompted Entry 不存在于User Defined Properties中
+                                Console.WriteLine("描述：" + property_userdefined.Value);
+                                //property_userdefined = DesignInfo2["描述"];  //"描述"Properties-Model 不存在于User Defined Properties中
+                                //Console.WriteLine("描述：" + property_userdefined.Value);
 
-                            //Console.WriteLine();
-                            //Console.WriteLine();
+                            }
+                            catch { Console.WriteLine("有一些不存在的内容"); }
+                            #endregion
 
+                            #region Design Tracking Properties
                             //Design Tracking Properties
                             PropertySet DesignInfo3 = drawingDocument.PropertySets["{32853F0F-3444-11D1-9E93-0060B03C1CA6}"];
                             Console.WriteLine("DesignInfo3: " + (DesignInfo3 == null));
@@ -180,7 +219,131 @@ namespace InventroAppTest1
                             property_tracing = DesignInfo3.ItemByPropId[(int)PropertiesForDesignTrackingPropertiesEnum.kDesignStatusDesignTrackingProperties];
                             Console.WriteLine("DesignStatus : " + property_tracing.Value);
 
+                            try
+                            {
+                                property_tracing = DesignInfo3["MATERIAL"];
+                                Console.WriteLine("材料: " + property_tracing.Value);
+                            }
+                            catch { }
+                            try
+                            {
+                                property_tracing = DesignInfo3.ItemByPropId[(int)PropertiesForDesignTrackingPropertiesEnum.kMaterialDesignTrackingProperties];
+                                Console.WriteLine("材料: " + property_tracing.Value);
+                            }
+                            catch { }
+                            try
+                            {
+                                property_tracing = DesignInfo3["DESCRIPTION"];
+                                Console.WriteLine("描述: " + property_tracing.Value);
+                            }
+                            catch { }
+                            try
+                            {
+                                property_tracing = DesignInfo3.ItemByPropId[(int)PropertiesForDesignTrackingPropertiesEnum.kDescriptionDesignTrackingProperties];
+                                Console.WriteLine("描述: " + property_tracing.Value);
+                            }
+                            catch { }
+                            try
+                            {
+                                property_tracing = DesignInfo3["MASS"];
+                                Console.WriteLine("质量: " + property_tracing.Value);
+                            }
+                            catch { }
+                            try
+                            {
+                                property_tracing = DesignInfo3["质量"];  //不能打印出来
+                                Console.WriteLine("质量: " + property_tracing.Value);
+                            }
+                            catch { }
+                            try
+                            {
+                                property_tracing = DesignInfo3.ItemByPropId[(int)PropertiesForDesignTrackingPropertiesEnum.kMassDesignTrackingProperties];
+                                Console.WriteLine("质量: " + property_tracing.Value);
+                            }
+                            catch { }
 
+                            //"图幅"不在Design Tracking Properties
+                            try
+                            {
+                                property_tracing = DesignInfo3["图幅"];  
+                                Console.WriteLine("图幅: " + property_tracing.Value);
+                            }
+                            catch { }
+                            //"初始视图比例"不在Design Tracking Properties
+                            try
+                            {
+                                property_tracing = DesignInfo3["初始视图比例"];
+                                Console.WriteLine("初始视图比例 : " + property_tracing.Value);
+                            }
+                            catch { }
+                            try
+                            {
+                                property_tracing = DesignInfo3["Intitial View Scale"];
+                                Console.WriteLine("Intitial View Scale : " + property_tracing.Value);
+                            }
+                            catch { }
+                            //"初Sheet Number"不在Design Tracking Properties
+                            try
+                            {
+                                property_tracing = DesignInfo3["图纸号"];
+                                Console.WriteLine("图纸号 : " + property_tracing.Value);
+                            }
+                            catch { }
+                            try
+                            {
+                                property_tracing = DesignInfo3["Sheet Number"];
+                                Console.WriteLine("Sheet Number : " + property_tracing.Value);
+                            }
+                            catch { }
+                            #endregion
+
+                            #region Document Summary Information
+                            //Document Summary Information
+                            PropertySet DesignInfo4 = drawingDocument.PropertySets["{D5CDD502-2E9C-101B-9397-08002B2CF9AE}"];
+                            Console.WriteLine("DesignInfo4: " + (DesignInfo4 == null));
+
+                            //Property property_DocumentSummary = DesignInfo4["图幅"];  //"图幅"不在 Document Summary Information
+                            //Console.WriteLine("图幅："+ property_DocumentSummary.Value);
+                            try
+                            {
+                                Property property_DocumentSummary = DesignInfo4.ItemByPropId[(int)PropertiesForDocSummaryInformationEnum.kCategoryDocSummaryInformation];
+                                Console.WriteLine("kCategory：" + property_DocumentSummary.Value);
+                                property_DocumentSummary = DesignInfo4.ItemByPropId[(int)PropertiesForDocSummaryInformationEnum.kCompanyDocSummaryInformation];
+                                Console.WriteLine("kCompany：" + property_DocumentSummary.Value);
+                                property_DocumentSummary = DesignInfo4.ItemByPropId[(int)PropertiesForDocSummaryInformationEnum.kManagerDocSummaryInformation];
+                                Console.WriteLine("kManager：" + property_DocumentSummary.Value);
+                            }
+                            catch { }
+                            try
+                            {
+                                Property property_0 = DesignInfo4["Sheet Number"];  //Sheet Number"
+                                Console.WriteLine("PropertySet.Property[0].value: " + property_0.Value);
+                            }
+                            catch { }
+                            #endregion
+
+                            #region 读Sheet properties
+                            try
+                            {
+                                //注：在这里直接
+                                Sheet sheet = drawingDocument.ActiveSheet;  
+                                string scaleString = sheet.DrawingViews[1].ScaleString;  //图纸特性
+                                Console.WriteLine("ScaleString = " + scaleString);  //initial view scale 比例
+                                Console.WriteLine("Sheet Size = " + sheet.Size);  //图纸大小
+
+                                Console.WriteLine("Sheet Revision = " + sheet.Revision);
+                                Sheets sheets = drawingDocument.Sheets;
+                                Console.WriteLine("Sheets count = " + sheets.Count);
+
+                                //AttributeSets attributeSets = sheet.AttributeSets;
+                                IsTheSameApplication(inventorApp, sheet);
+                            }
+                            catch { }
+                            
+                            //Inventor.Attribute attribute = attributeSets[""];
+
+
+                            #endregion
                         }
                         /*
                          catch
@@ -200,15 +363,18 @@ namespace InventroAppTest1
                 Console.WriteLine("读取文件夹失败");
             }
 
-
+            
 
         }
 
         //判断Sheet的Application与本次设置的全局Application是否是一样的
         //需要用到Sheet.Application == inventorApp进行判断
-        private static void IsTheSameApplication()
+        private static void IsTheSameApplication(Inventor.Application inventorApp, Sheet sheet)
         {
-
+            Console.WriteLine("---------------------------IsTheSameApplication-----------------------------");
+            Console.WriteLine(sheet.Application == inventorApp);  //底层api的application就是最上层Application
+            Console.WriteLine(sheet.Application);  //打印出来System.__ComObject，这是所有COM对象一致的对象类型
+            Console.WriteLine("End------------------------IsTheSameApplication-----------------------------");
         }
 
 
