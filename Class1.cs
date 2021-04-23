@@ -391,6 +391,7 @@ namespace InventroAppTest1
         #region 读材料明细表
         /*特别注明：
          InventorAPI自带的集合类型，下标均从1开始
+         工程图的明细表利用partslists去读取，BOM与partslists是关联的，但不是等同的，略有区别
          */
         private static void ReadBOMTable(string file)
         {
@@ -400,14 +401,29 @@ namespace InventroAppTest1
             {
                
                 DrawingBOMs BOMs = drawingDocument.DrawingBOMs;
-                Console.WriteLine("BOMs -- "+(BOMs == null)+"  "+BOMs.Count);
+                Console.WriteLine("BOMs -- "+(BOMs == null)+" & BOMs.Count = "+BOMs.Count);
 
                 if (BOMs.Count == 0) { }
                 else
-                {
+                { 
                     DrawingBOM BOM = BOMs[1];
                     Console.WriteLine("BOM.tostring = " + BOM.ToString());
+                    for(int i=1; i<=BOM.DrawingBOMRows.Count; i++)
+                    {
+                        DrawingBOMRow row = BOM.DrawingBOMRows[i];
+                        for (int j=1; j<= BOM.DrawingBOMColumns.Count; j++)
+                        {
+                            DrawingBOMColumn column = BOM.DrawingBOMColumns[j];
+
+                            Console.Write(column.Title+"："+ row[j].Value + "\t");
+
+                            //DrawingBOMCell cell = row[j];
+
+                        }
+                        Console.WriteLine();
+                    }
                 }
+                Console.WriteLine("\n************************************************************************\n");
                 
                 PartsLists partsLists = drawingDocument.ActiveSheet.PartsLists;
                 Console.WriteLine("PartsLists == " + (partsLists == null) + " " + partsLists.Count);
@@ -421,6 +437,7 @@ namespace InventroAppTest1
                     //Console.WriteLine(partsLists[0].PartsListRows == null);
                     PartsList partsList = null;
 
+                    //读明细表中的内容
                     for (int x = 1; x <= partsLists.Count; x++)
                     {
                         partsList = partsLists[x];//示例上直接写的1
@@ -432,20 +449,15 @@ namespace InventroAppTest1
                             for (int i = 1; i <= row.Count; i++)
                             {
                                 PartsListCell cell = row[i];
-                                if (partsList.PartsListColumns[i].Title != "QTY")
-                                {
-                                    Console.Write("Ttile : " + partsList.PartsListColumns[i].Title + cell.Value + "\t");
-                                }
+                                //if (partsList.PartsListColumns[i].Title != "QTY")
+                               // {
+                                    Console.Write("Ttile : " + partsList.PartsListColumns[i].Title + "\t" + cell.Value);
+                                //}
                                 Console.WriteLine();
                             }
-
                         }
                     }
-
-
                 }
-               
-
             }
             Console.WriteLine("End------读取工程图BOM信息------");
         }
