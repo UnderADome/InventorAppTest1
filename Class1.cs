@@ -14,6 +14,7 @@ namespace InventroAppTest1
 {
     class Class1
     {
+        /*
 
         static void Main(string[] args)
         {
@@ -31,7 +32,7 @@ namespace InventroAppTest1
             System.Console.ReadKey();
             System.Console.ReadKey();
         }
-
+        */
         #region 获取Inventor实例
         private static Inventor.Application inventorApp = null;
         private static void GetInventorApplication()
@@ -392,6 +393,7 @@ namespace InventroAppTest1
         /*特别注明：
          InventorAPI自带的集合类型，下标均从1开始
          工程图的明细表利用partslists去读取，BOM与partslists是关联的，但不是等同的，略有区别
+         BOM中的"项目"在partslists中是"序号"
          */
         private static void ReadBOMTable(string file)
         {
